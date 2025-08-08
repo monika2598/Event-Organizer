@@ -14,13 +14,18 @@ const SignUpScreen = ({ navigation }) => {
       Alert.alert('Error', 'Please fill in both fields.');
       return;
     }
-
+  
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+  
+      Alert.alert('Success', 'Account created! Please sign in.');
+      await auth.signOut(); // Sign out right after creating account
+      navigation.navigate('SignIn'); // Go to sign in screen
     } catch (error) {
       Alert.alert('Sign Up Error', error.message);
     }
   };
+  
 
   return (
     <View style={styles.container}>
